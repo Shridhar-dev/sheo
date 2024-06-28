@@ -1,6 +1,6 @@
 const LOCAL_URL = "http://127.0.0.1:8000" 
 const PRODUCTION_URL = "https://sheo-backend.vercel.app"
-const API_URL = LOCAL_URL
+const API_URL = PRODUCTION_URL
 
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
