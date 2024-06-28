@@ -10,6 +10,7 @@ import { patch, patchFiles, post, postFiles } from "@/lib/api"
 import { useRouter } from "next/navigation"
 import { AppContext } from "@/components/interface/MainView"
 import MegaPhone from "@/assets/megaphone.png"
+import { logout } from "@/lib/auth"
 
 export default function Component() {
     const router = useRouter()
@@ -60,9 +61,14 @@ export default function Component() {
       }
     }
 
+  const signout = async() => {
+    await logout()
+    window.location.reload()
+  }
+
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
-      <main className="flex-1 px-10 py-12 grid grid-cols-1 md:grid-cols-2 gap-12">
+      <main className="flex-1 p-5 sm:px-10 sm:py-12 grid grid-cols-1 md:grid-cols-2 gap-12">
         <div>
           <div className="bg-black border border-gray-700 rounded-lg shadow-sm p-6 space-y-6">
             <h2 className="text-2xl font-bold ">Profile Settings</h2>
@@ -107,6 +113,9 @@ export default function Component() {
               </Button>
             </form>
           </div>
+          <Button className="w-full mt-5" type="submit">
+              Logout
+          </Button>
         </div>
         <div className="bg-white w-full relative flex justify-center items-center dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden ">
           <Image 

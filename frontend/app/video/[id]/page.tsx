@@ -160,7 +160,7 @@ function Video() {
                   </video>
                 </div>
                 <p className=" text-white text-2xl py-2 font-semibold">{video.name}</p>
-                <div className='mt-2 flex items-start gap-3'>
+                <div className='mt-2 flex flex-wrap items-start gap-3'>
                   <div className='rounded-full flex justify-center items-center h-10 w-10'>
                     <Image 
                       src={video.channel.avatar}
@@ -177,7 +177,7 @@ function Video() {
                   <div>
                     <Button onClick={subscribeChannel} variant={video.subscribed ? "outline" : "default"}>{video.subscribed ? "Subscribed!" : "Subscribe"}</Button>
                   </div>
-                  <div className="ml-auto flex items-center gap-5">
+                  <div className="lg:ml-auto mt-2 lg:mt-0 flex justify-between lg:justify-normal items-center gap-5">
                     <div className="flex border items-center border-gray-700 rounded-full overflow-hidden">
                       <Button onClick={likeVideo} className="bg-transparent hover:bg-transparent flex items-center">
                         <Heart className={video.liked ? "fill-white" : ""}/>

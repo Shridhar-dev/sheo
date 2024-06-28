@@ -6,14 +6,14 @@ backend/node_modules
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-/dist
+backend/dist
 
 # testing
 /coverage
 
 # next.js
-/.next/
-/out/
+frontend/.next
+frontend/out/
 
 # production
 /build

@@ -66,7 +66,7 @@ export default function Component() {
 
   return (
     <div className="grid grid-cols-12 w-screen">
-      <Card className="bg-black text-white col-span-7 relative h-screen max-h-screen overflow-y-auto">
+      <Card className="bg-black text-white col-span-12 lg:col-span-7 relative h-screen max-h-screen overflow-y-auto">
         <CardHeader>
           <CardTitle className="text-xl">Upload your video file</CardTitle>
           <CardDescription>Video files should be in .mp4 format.</CardDescription>
@@ -120,7 +120,7 @@ export default function Component() {
           </div>     */}
         </CardContent>
       </Card>
-      <Card className="bg-black text-white col-span-5 h-screen sticky top-0">
+      <Card className="bg-black text-white col-span-0 lg:col-span-5 h-screen sticky top-0">
         <CardHeader>
           <CardTitle className="text-xl">Preview</CardTitle>
           <CardDescription>How your video will be displayed</CardDescription>

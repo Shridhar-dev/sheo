@@ -36,10 +36,10 @@ export default function Component() {
   }, [user])
 
   return (
-    <div className="flex flex-col bg-black w-screen min-h-screen m-0 p-0">
+    <div className=" bg-black  w-full  min-h-screen m-0 p-0">
 
-      <main className="grid w-full max-h-screen overflow-y-auto lg:grid-cols-[300px_1fr]  gap-2 md:gap-4 ">
-        <div className="flex flex-col gap-2 sticky top-0 h-screen md:pl-6 md:py-6">
+      <main className="grid w-full max-h-screen overflow-y-auto grid-cols-24  gap-2 md:gap-4 ">
+        <div className="flex flex-col col-span-24 lg:col-span-7 gap-2 sticky top-0 lg:h-screen md:pl-6 md:py-6">
           <div className="rounded-lg border border-gray-700 overflow-hidden">
             <Card className="bg-black border-none text-white">
               <CardHeader className="p-4">
@@ -121,13 +121,13 @@ export default function Component() {
               </CardContent>
             </Card>*/}
           </div>
-          <Link href="/video/create">
+          <Link href="/video/create" className="absolute bottom-20 right-5  shadow-white lg:static">
             <Button className="bg-white text-black hover:bg-white hover:text-black">+ Create New Video</Button>
           </Link>
         </div>
-        <div className="grid gap-4  md:pr-6 md:py-6">
+        <div className="grid gap-4 col-span-24 lg:col-span-17  md:pr-6 md:py-6 mt-5 lg:mt-0">
           <Card className="bg-black border border-gray-700 text-white">
-            <CardHeader className="flex flex-col md:flex-row items-start md:items-center gap-4 border-b md:gap-2">
+            <CardHeader className="flex flex-row justify-center items-center gap-4 border-b md:gap-2">
               <div className="flex flex-col items-start md:flex-row md:items-center md:gap-1.5">
                 <CardTitle className="text-base">Videos</CardTitle>
               </div>

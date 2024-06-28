@@ -7,6 +7,7 @@ services:
       - '8000:8000'
     volumes:
       - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
     networks:
       - app-network
 
@@ -19,6 +20,7 @@ services:
       - backend
     volumes:
       - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
     networks:
       - app-network
 

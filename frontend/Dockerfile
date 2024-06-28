@@ -2,16 +2,16 @@ FROM node:18-slim
 
 WORKDIR /usr/src/app
 
-RUN corepack enable 
+RUN corepack enable
 
 COPY package.json pnpm-lock.yaml ./
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
 COPY . .
 
-RUN pnpm run build
+RUN pnpm build
 
-EXPOSE 3000
+RUN cp -r .next/static .next/standalone/.next/static
 
-CMD ["pnpm", "run", "start"]
+CMD [ "node", ".next/standalone/server.js" ]
