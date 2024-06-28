@@ -1,23 +1,27 @@
 "use client"
 
 import Image from "next/image";
-import Thumbnail from '@/assets/thumbnail.jpg'
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { get } from "@/lib/api";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { toast } from "@/components/ui/use-toast";
 
 export default function Component() {
     const { id } = useParams();
     const [channel, setChannel] = useState<any>({avatar:"",videoList:[],name:"", description:""})
-
+    const { push } = useRouter()
     const getChannel = async() =>{
       const response = await get(`channel/${id}`);
       if(response.status === 200){
         setChannel(response.data);
       } 
       else{
-        console.error("Error getting video", `Status Code: ${response.status}`)
+        if(response.status === 400){
+          push("/")
+        }
+        toast({ title: "There was an error getting channel details", description: `${response.message}`}) 
+        console.error("Error getting channel", `Status Code: ${response.status}`, `Message: ${response.message}`)
       }
       
     }

@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     },
     profileImage: {
         type:String,
-        required:false,
+        required:true,
         default:"https://res.cloudinary.com/dnwckxyyr/image/upload/b_rgb:FFFFFF/v1719059489/pgn4knhdevbig6xj1ugl.png"  
     },
     accountType:{

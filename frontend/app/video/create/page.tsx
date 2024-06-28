@@ -12,6 +12,7 @@ import Thumbnail from '@/assets/thumbnail.jpg'
 import { getCurrentUser, post, postFiles } from "@/lib/api"
 import { useRouter } from "next/navigation"
 import { AppContext } from "@/components/interface/MainView"
+import { toast } from "@/components/ui/use-toast"
 
 export default function Component() {
   let formValues = new FormData()
@@ -52,6 +53,23 @@ export default function Component() {
     formdata.append("description", formData.description)
     formdata.append("video", formData.video)
     formdata.append("thumbnail", formData.thumbnail)
+    
+    if(formData.name === '' || formData.description === ''){
+      toast({ title: "Please enter name and description❕", description: `Name and description are needed to create a video`}) 
+      return;
+    }
+
+    if(formData.thumbnail.type === ''){
+      toast({ title: "Please upload a thumbnail❕", description: `A thumbnail is needed to create a video`}) 
+      return;
+    }
+    
+    if(formData.video.type === ''){
+      toast({ title: "Please upload a video❕", description: `A video is needed to create a video`}) 
+      return;
+    }
+    return;
+    
     const response = await postFiles(`video/create`,formdata);
 
     if(response.status === 200){

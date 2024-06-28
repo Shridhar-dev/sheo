@@ -63,6 +63,13 @@ export const getChannel:(req:Request, res:Response, next:NextFunction)=>void = a
     
     try{   
         const channel:any = await Channel.findById(id).exec()
+        if(!channel){
+          res.json({
+            status: 400,
+            message:"Channel does not exist"
+          })
+          return;
+        }
         const videos = await Video.find({"channel.id":id}).exec()
         const views = await getTotalViews(id)
         const comments = await getTotalComments(id)

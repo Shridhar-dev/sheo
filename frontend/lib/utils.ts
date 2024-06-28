@@ -6,4 +6,4 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 
-export const sideUIpaths = ["/login", "/signup", "/video/create", "/channel/create"]
+export const sideUIpaths = ["/login", "/signup", "/video/create"]

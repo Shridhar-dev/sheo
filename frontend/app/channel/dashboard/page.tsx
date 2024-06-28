@@ -10,6 +10,7 @@ import { get } from "@/lib/api";
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import VideoListTable from "@/components/interface/VideoListTable"
+import { toast } from "@/components/ui/use-toast"
 
 export default function Component() {
   const { push } = useRouter()
@@ -22,6 +23,7 @@ export default function Component() {
       setChannel(response.data);
     } 
     else{
+      toast({ title: "There was an error getting channel details", description: `${response.message}`}) 
       console.error("Error getting channel details", `Status Code: ${response.status}`)
     }
   }

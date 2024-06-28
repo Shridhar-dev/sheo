@@ -3,7 +3,7 @@
 import { AppContext } from "@/components/interface/MainView";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 interface SubscriptionInterface {
     id:string,
@@ -14,6 +14,10 @@ interface SubscriptionInterface {
 function SubscriptionsPage() {
   const app = useContext<any>(AppContext); 
   
+  useEffect(()=>{
+    app.getAcc()
+  },[])
+
   return (
     <main className="text-white p-8">
         <p className="text-2xl font-semibold">Subscriptions</p>

@@ -5,6 +5,11 @@ import sharp from "sharp"
 const storage = multer.memoryStorage()
 
 const fileFilter = (req:Request, file:Express.Multer.File, cb:FileFilterCallback) => {
+    if(file.mimetype === "application/octet-stream"){
+      cb(null, true);
+      return;
+    }
+
     if (
         file.mimetype === 'image/jpg' ||
         file.mimetype === 'image/jpeg' ||
@@ -19,6 +24,13 @@ const fileFilter = (req:Request, file:Express.Multer.File, cb:FileFilterCallback
 
 export const resize = (req:any, res:Response, next:NextFunction) => {
     if(!req.file) next();
+    if(req.file.mimetype === "application/octet-stream"){
+      res.json({
+        status:400,
+        message:"Channel cannot be created without channel image"
+      })
+      return;
+    }
     req.file.filename = `channel-${Date.now()}.jpeg`
 
     sharp(req.file.buffer)

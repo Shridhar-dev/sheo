@@ -11,9 +11,10 @@ import { postFiles } from "@/lib/api"
 import { useRouter } from "next/navigation"
 import { AppContext } from "@/components/interface/MainView"
 import MegaPhone from "@/assets/megaphone.png"
+import { toast } from "@/components/ui/use-toast"
 
 export default function Component() {
-    const router = useRouter()
+    const { push } = useRouter()
     const [formData, setFormData] = useState({
         name:"",
         description: "",
@@ -24,11 +25,11 @@ export default function Component() {
     useEffect(()=>{
       if(app.user === undefined) return;
       if(app.user === null) {
-        router.push("/login");
+        push("/login");
         return;
       }
       else {
-        if(app.user?.accountType ==="creator") router.push("/");
+        if(app.user?.accountType ==="creator") push("/");
         return;
       }
     },[app])
@@ -46,13 +47,26 @@ export default function Component() {
       formdata.append("name", formData.name)
       formdata.append("description", formData.description)
       formdata.append("avatar", formData.avatar)
+      
+      if(formData.name === '' || formData.description === ''){
+        toast({ title: "Please enter name and description❕", description: `Name and description are needed to create a channel`}) 
+        return;
+      }
+
+      if(formData.avatar.type === ''){
+        toast({ title: "Please upload an image❕", description: `An image is needed to create a channel`}) 
+        return;
+      }
+
       const response = await postFiles(`channel/create`,formdata);
   
       if(response.status === 200){
          app.getAcc()
-         router.push(response.link);
+         toast({ title: "Successfully created your channel ✅", description: `${formData.name} is your channel`})  
+         push(response.link);
       } 
       else{
+        toast({ title: "There was an error creating your Channel ❌", description: `${response.message}`})  
         console.error("Error creating channel", `Status Code: ${response.status}`)
       }
     }

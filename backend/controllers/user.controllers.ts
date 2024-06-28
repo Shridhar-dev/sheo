@@ -23,7 +23,7 @@ const uploadAvatar = async(title:string, image:string):Promise<UploadApiResponse
 
 export const signup:(req:Request, res:Response, next:NextFunction)=>void = asyncHandler(async(req:Request,res:Response) => {
     const { name, email, profileImage, password, passwordConfirmation } = req.body;    
-
+    let defaultUserImage = "https://res.cloudinary.com/dnwckxyyr/image/upload/b_rgb:FFFFFF/v1719059489/pgn4knhdevbig6xj1ugl.png"
     if(password !== passwordConfirmation){
         res.json({
             status:403,
@@ -34,7 +34,7 @@ export const signup:(req:Request, res:Response, next:NextFunction)=>void = async
         try{
             bcrypt.genSalt(parseInt(process.env.SALT_ROUNDS!), function(err, salt) {
                 bcrypt.hash(password, salt, async function(err, hash) {
-                    let user = await User.create({ name, email, profileImage, password:hash, passwordConfirmation:hash })
+                    let user = await User.create({ name, email, profileImage: profileImage ? profileImage : defaultUserImage , password:hash, passwordConfirmation:hash })
                     const token = jwt.sign({ id:user._id }, process.env.JWT_SECRET_KEY!, { expiresIn:"90d" });
 
                     res.cookie("access_token", token, {

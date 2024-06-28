@@ -12,10 +12,11 @@ import Thumbnail from '@/assets/thumbnail.jpg'
 import { get, getCurrentUser, patchFiles, post, postFiles } from "@/lib/api"
 import { useParams, useRouter } from "next/navigation"
 import { AppContext } from "@/components/interface/MainView"
+import { toast } from "@/components/ui/use-toast"
 
 export default function Component() {
   let formValues = new FormData()
-  const router = useRouter()
+  const { push } = useRouter()
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -28,11 +29,11 @@ export default function Component() {
   useEffect(()=>{
     if(app.user === undefined) return;
     if(app.user === null) {
-      router.push("/login");
+      push("/login");
       return;
     }
     else {
-      if(!(app.user?.accountType ==="creator")) router.push("/");
+      if(!(app.user?.accountType ==="creator")) push("/");
       else{
         getVideo()
       }
@@ -57,9 +58,11 @@ export default function Component() {
     const response = await patchFiles(`video/update`,formdata);
 
     if(response.status === 200){
-       router.push("/");
+      toast({ title: "Video successfully updated ✅"})  
+      push("/");
     } 
     else{
+      toast({ title: "There was an error updating video ❌", description:response.message})  
       console.error("Error updating video", `Status Code: ${response.status}`)
     }
   }
@@ -68,7 +71,7 @@ export default function Component() {
         const response = await get(`video/${id}`);
         if(response.status === 200){
           if(response.data.channel.id !== app.user.channel){
-            router.push("/");
+            push("/");
             return;
           }
           setFormData({...response.data});

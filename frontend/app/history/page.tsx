@@ -1,5 +1,6 @@
 "use client"
 import VideoCard from "@/components/interface/Video";
+import { toast } from "@/components/ui/use-toast";
 import { get } from "@/lib/api";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,7 +22,12 @@ export default function History() {
 
   const getHistory = async() =>{
     const res = await get("user/history")
-    setHistories(res.data)
+    if(res.status === 200){
+      setHistories(res.data)
+    }
+    else{
+      toast({ title: "There was an getting your history", description: `${res.message}`}) 
+    }
   }
 
   useEffect(()=>{

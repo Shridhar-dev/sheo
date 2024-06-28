@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react"
-import { Clock, Compass, Flame, Folder, Heart, History, Info, Menu, Plus, Settings, UserCheck } from "lucide-react"
+import { Bookmark, Clock, Compass, Flame, Folder, Heart, History, Info, Menu, Plus, Radio, Settings, UserCheck } from "lucide-react"
 import { usePathname } from "next/navigation"
 import { sideUIpaths } from "@/lib/utils"
 import Link from "next/link"
@@ -24,12 +24,12 @@ function SideDrawer() {
             />
           </Link>
           <div className="lg:mt-5">
-            <div className="flex lg:flex-col gap-5">
+            <div className="flex lg:flex-col gap-0 lg:gap-5">
               <Link href={`/`} className="w-full flex items-center justify-center gap-4 py-3 hover:text-opacity-100 px-2 rounded-md text-white text-opacity-60"><Compass className="min-w-[22px]"/></Link>
               <Link href={`/trending`} className="w-full flex items-center justify-center gap-4 py-3 hover:text-opacity-100 px-2 rounded-md text-white text-opacity-60"><Flame className="min-w-[22px]"/></Link>
-              <Link href={`/subscriptions`} className="w-full flex items-center justify-center gap-4 py-3 hover:text-opacity-100 px-2 rounded-md text-white text-opacity-60"><Plus className="min-w-[22px]"/></Link>
+              <Link href={`/subscriptions`} className="w-full flex items-center justify-center gap-4 py-3 hover:text-opacity-100 px-2 rounded-md text-white text-opacity-60"><Radio className="min-w-[22px]"/></Link>
               <div className="lg:w-full hidden lg:block h-[0.07px] bg-white  lg:bg-opacity-10"/>
-              <Link href={`/saved`} className="w-full flex items-center justify-center gap-4 py-3 hover:text-opacity-100 px-2 rounded-md text-white text-opacity-60"><Folder className="min-w-[22px]"/></Link>
+              <Link href={`/bookmarked`} className="w-full flex items-center justify-center gap-4 py-3 hover:text-opacity-100 px-2 rounded-md text-white text-opacity-60"><Bookmark className="min-w-[22px]"/></Link>
               <Link href={`/history`} className="w-full flex items-center justify-center gap-4 py-3 hover:text-opacity-100 px-2 rounded-md text-white text-opacity-60"><History className="min-w-[22px]"/></Link>
               <Link href={`/liked`} className="w-full flex items-center justify-center gap-4 py-3 hover:text-opacity-100 px-2 rounded-md text-white text-opacity-60"><Heart className="min-w-[22px]"/></Link>
               <div className="lg:w-full hidden lg:block h-[0.07px] bg-white lg:bg-opacity-10"/>

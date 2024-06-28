@@ -29,11 +29,14 @@ function SignUpPage() {
     e.preventDefault()
     if(passwordCondition) return;
     const res = await post("user/signup",formData)
-    localStorage.setItem('sheo-jwt', res.token)
+
     const name = await getAcc()
     if(name){
       toast({ title: "Successfully Signed In ✅", description: `${name} is the current active account`})  
       push("/")
+    }
+    if(res.status !== 200){
+      toast({ title: "There was an error signing you up ❌", description:res.message})  
     }
   }
   

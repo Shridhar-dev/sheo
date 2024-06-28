@@ -11,9 +11,10 @@ import { useRouter } from "next/navigation"
 import { AppContext } from "@/components/interface/MainView"
 import MegaPhone from "@/assets/megaphone.png"
 import { logout } from "@/lib/auth"
+import { toast } from "@/components/ui/use-toast"
 
 export default function Component() {
-    const router = useRouter()
+    const { push } = useRouter()
     const [formData, setFormData] = useState({
         name:"",
         profileImage: new Blob()
@@ -39,9 +40,11 @@ export default function Component() {
   
       if(response.status === 200){
          app.getAcc()
-         router.push("/");
+         toast({ title: "Successfully updated your details ✅"})  
+         push("/");
       } 
       else{
+        toast({ title: "There was an error updating your details ❌", description: `${response.message}`})  
         console.error("Error updating user", `Status Code: ${response.status}`)
       }
     }
@@ -54,9 +57,11 @@ export default function Component() {
   
       if(response.status === 200){
          app.getAcc()
-         router.push("/");
+         toast({ title: "Successfully changed your password ✅"})  
+         push("/");
       } 
       else{
+        toast({ title: "There was an error updating your password ❌", description: `${response.message}`})  
         console.error("Error updating password", `Status Code: ${response.status}`)
       }
     }
@@ -113,7 +118,7 @@ export default function Component() {
               </Button>
             </form>
           </div>
-          <Button className="w-full mt-5" type="submit">
+          <Button onClick={signout} className="w-full mt-5" type="submit">
               Logout
           </Button>
         </div>

@@ -3,12 +3,13 @@ import SearchBar from "@/components/interface/SearchBar"
 import Thumbnail from '@/assets/thumbnail.jpg'
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Clock, Folder, Heart, SendHorizonal, Share2, ThumbsUp } from "lucide-react"
+import { Bookmark, Clock, Folder, Heart, SendHorizonal, Share2, ThumbsUp } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { useContext, useEffect, useState } from "react"
 import { get, post } from "@/lib/api"
 import { useParams, useRouter } from "next/navigation"
 import { AppContext } from "@/components/interface/MainView"
+import { toast } from "@/components/ui/use-toast"
 
 interface ReviewInterface {
   id: string,
@@ -115,6 +116,7 @@ function Video() {
       router.push("/login");
       return;
     }
+    console.log(id)
     await post(`video/${id}/save`);
     if(video.saved){
       setVideo((prev:VideoInterface)=>({...prev, saved:false}))
@@ -131,8 +133,10 @@ function Video() {
     }
     const response = await post(`video/reply`,{videoId:id, name:app.user.name, profileImage:app.user.profileImage, review:comment});
     if(response.status === 200){
+      toast({ title: "Successfully posted comment ✅"}) 
       const commentResponse = await get(`video/${id}/comments`);
       if(commentResponse.status === 200){
+        setComment("")
         setVideo((prev:VideoInterface)=>({...prev, reviews:commentResponse.data}));
       } 
       else{
@@ -140,8 +144,17 @@ function Video() {
       }
     } 
     else{
+      toast({ title: "There was an error while posting your comment ❌", description:response.message}) 
       console.error("Error posting comment", `Status Code: ${response.status}`)
     }
+  }
+
+  const shareVideo = () => {
+    navigator.share({
+      url:window.location.href,
+      title: video.name,
+      text: video.description,
+    })
   }
 
   useEffect(()=>{
@@ -185,13 +198,12 @@ function Video() {
                       </Button>
                       
                     </div>
-                    <Button className="flex bg-transparent gap-3 border items-center border-gray-700 rounded-full overflow-hidden">
+                    <Button onClick={shareVideo} className="flex bg-transparent gap-3 border items-center border-gray-700 rounded-full overflow-hidden">
                       <Share2 />
                       Share
                     </Button>
                     <Button onClick={saveVideo} className="flex bg-transparent gap-3 border items-center border-gray-700 rounded-full overflow-hidden">
-                      <Folder />
-                      Save{video.saved && "d!"}
+                      <Bookmark className={video.saved ? "fill-white" : ""}/>
                     </Button>
                   </div>
                 </div>
@@ -204,7 +216,7 @@ function Video() {
                   <p className="text-white text-xl font-semibold">Comments</p>
                   <div className=" flex items-center mt-2 gap-2">
                     <Image
-                          src={app.user?.profileImage || ""}
+                          src={app.user?.profileImage || "https://res.cloudinary.com/dnwckxyyr/image/upload/b_rgb:FFFFFF/v1719059489/pgn4knhdevbig6xj1ugl.png"}
                           height={40}
                           width={40}
                           className="rounded-full"
