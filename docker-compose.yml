@@ -1,0 +1,27 @@
+
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./backend:/usr/src/app
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - '3000:3000'
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/usr/src/app
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
