@@ -5,8 +5,16 @@ import userRouter from "./routes/user.routes.js";
 import videoRouter from "./routes/video.routes.js";
 import channelRouter from "./routes/channel.routes.js";
 const app = express();
+let whitelist = ['http://localhost:3000', 'https://sheo.vercel.app'];
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
     credentials: true
 }));
