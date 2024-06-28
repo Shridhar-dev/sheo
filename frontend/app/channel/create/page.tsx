@@ -87,13 +87,18 @@ export default function Component() {
             </div>
             <div className=" relative border border-gray-700 p-5 flex items-center flex-col justify-center">
               <div className="flex  items-center space-x-4">
-                <Image 
-                    src={formData.avatar.size && URL.createObjectURL(formData.avatar) || Thumbnail.src}
+                {
+                  (formData.avatar.size && URL.createObjectURL(formData.avatar)) ?
+                  <Image 
+                    src={URL.createObjectURL(formData.avatar)}
                     height={Thumbnail.height}
                     width={Thumbnail.width}
                     alt=''
                     className="w-36 h-36 mb-5 border border-gray-700 rounded-full"
                   />
+                  :
+                  <div className="w-36 h-36 mb-5 border border-gray-700 rounded-full"></div>
+                }
               </div>
               <Label htmlFor="channel-profile" className="text-xl">Channel Profile Picture</Label>
               <Input id="channel-profile" onChange={(e)=>editFormData("avatar", e.target.files && e.target.files[0] || "")} className="absolute top-0 left-0 w-full opacity-0 h-full" type="file" />
@@ -104,7 +109,7 @@ export default function Component() {
             <p className=" text-gray-500 text-xs">By agreeing to create your channel you agree to the terms and conditions of being a channel owner and consent to make your account a creator account</p>
           </form>
         </div>
-        <div className="bg-white w-full relative flex justify-center items-center dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden ">
+        <div className="bg-white w-full relative hidden lg:flex justify-center items-center dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden ">
           <Image 
             src={MegaPhone.src}
             height={MegaPhone.height}

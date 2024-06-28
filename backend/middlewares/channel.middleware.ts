@@ -22,7 +22,7 @@ const fileFilter = (req:Request, file:Express.Multer.File, cb:FileFilterCallback
   
 }
 
-export const resize = (req:any, res:Response, next:NextFunction) => {
+export const resize = async(req:any, res:Response, next:NextFunction) => {
     if(!req.file) next();
     if(req.file.mimetype === "application/octet-stream"){
       res.json({
@@ -33,7 +33,7 @@ export const resize = (req:any, res:Response, next:NextFunction) => {
     }
     req.file.filename = `channel-${Date.now()}.jpeg`
 
-    sharp(req.file.buffer)
+    await sharp(req.file.buffer)
         .resize(300,300)
         .toFormat('jpeg')
         .jpeg({quality:90})

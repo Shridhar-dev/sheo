@@ -104,7 +104,6 @@ export const updateVideo:(req:Request, res:Response, next:NextFunction)=>void = 
     const video:any = await Video.findById(videoId).exec()
 
     if(!video?.channel.id.equals(user?.channel)){
-        console.log(video?.channel.id, user?.channel)
         res.json({
             status: 400,
             message:"Video doesnt belong to channel owned by user"

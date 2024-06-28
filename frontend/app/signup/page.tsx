@@ -10,6 +10,8 @@ import { AlertTriangle } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { AppContext } from "@/components/interface/MainView"
 import { useToast } from "@/components/ui/use-toast"
+import Logo from "@/assets/logo.png"
+import Link from "next/link"
 
 function SignUpPage() {
   const [formData, setFormData] = useState({
@@ -43,7 +45,14 @@ function SignUpPage() {
   return (
     <section className="grid grid-cols-2 gap-12 p-6 h-screen w-screen bg-white">
         <div className="flex flex-col col-span-2 lg:col-span-1 justify-center px-10 border rounded-lg space-y-6">
-            <p className="text-5xl border w-fit pb-3 rounded-md">📽️</p>
+            <p className="text-5xl border w-fit p-3 flex items-center rounded-md">
+              <Image
+                src={Logo.src}
+                height={40}
+                width={40}
+                alt=""
+              />
+            </p>
             <p className="text-3xl font-semibold mt-5">Sheo</p>
             <p className="mt-1 mb-5 text-gray-700">Sharing Videos simplified ✨</p>
             <form onSubmit={signup} className="flex flex-col gap-5">            
@@ -55,6 +64,7 @@ function SignUpPage() {
                 {passwordCondition && <p className=" text-red-400 flex items-center gap-x-2 bg-orange-200 bg-opacity-20 p-2 rounded-md"> <AlertTriangle size={16} />passwords do not match</p>}
                 <p></p>
                 <Button type="submit" disabled={condition}>Sign Up</Button>
+                <Link href="/login">Already have an account? <span className="font-semibold">Sign In</span></Link>
             </form>
         </div>
         <div className=" bg-black col-span-0 hidden md:flex lg:col-span-1 items-center border rounded-lg space-y-6 overflow-hidden">

@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { AppContext } from "@/components/interface/MainView"
 import { toast, useToast } from "@/components/ui/use-toast"
+import Logo from "@/assets/logo.png"
 
 function SignInPage() {
   const [formData, setFormData] = useState({
@@ -38,7 +39,14 @@ function SignInPage() {
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 py-12 gap-12 px-6 h-screen w-screen bg-white">
         <div className="flex flex-col justify-center px-10  border rounded-lg p-6 space-y-6">
-            <p className="text-5xl border w-fit pb-3 rounded-md">📽️</p>
+            <p className="text-5xl border w-fit p-3 flex items-center rounded-md">
+              <Image
+                src={Logo.src}
+                height={40}
+                width={40}
+                alt=""
+              />
+            </p>
             <p className="text-3xl font-semibold mt-5">Sheo - Sign In</p>
             <p className="mt-1 mb-5 text-gray-700">Sharing Videos simplified ✨</p>
             <form onSubmit={signin} className="flex flex-col gap-5">            

@@ -16,7 +16,7 @@ import { toast } from "@/components/ui/use-toast"
 
 export default function Component() {
   let formValues = new FormData()
-  const router = useRouter()
+  const { push } = useRouter()
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -29,11 +29,11 @@ export default function Component() {
   useEffect(()=>{
     if(app.user === undefined) return;
     if(app.user === null) {
-      router.push("/login");
+      push("/login");
       return;
     }
     else {
-      if(!(app.user?.accountType ==="creator")) router.push("/");
+      if(!(app.user?.accountType ==="creator")) push("/");
       return;
     }
   },[app])
@@ -68,14 +68,16 @@ export default function Component() {
       toast({ title: "Please upload a video❕", description: `A video is needed to create a video`}) 
       return;
     }
-    return;
+    
     
     const response = await postFiles(`video/create`,formdata);
 
     if(response.status === 200){
-       router.push(response.link);
+      toast({ title: "Video uploaded successfully ✅"})
+      push(response.link);
     } 
     else{
+      toast({ title: "There was an error uploading your video❕", description: `${response.message}`}) 
       console.error("Error creating channel", `Status Code: ${response.status}`)
     }
     setLoading(false)
@@ -119,7 +121,7 @@ export default function Component() {
                 </div>
                 <div className=" text-xs">
                   <p>
-                    <strong>video-thumbnail.jpg</strong>
+                    <strong>{formData.thumbnail.name || "video-thumbnail.jpg"}</strong>
                   </p>
                   <p>1280x720 • .jpg</p>
                   <Button size="sm" className="mt-3">Upload Thumbnail</Button>

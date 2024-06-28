@@ -8,10 +8,13 @@ import fs from "fs"
 import { NextFunction, Request, Response } from "express";
 
 const uploadAvatar = async(title:string, image:string):Promise<UploadApiResponse | any> => {
-    try{
+
+  try{
         return await cloudinary.uploader.upload(image, { public_id: title }, 
         function(error:any, result) {
-            if(error) throw Error(error);
+            if(error){
+               throw Error(error)
+            }
             else return result    
         });
     }
@@ -35,7 +38,7 @@ export const createChannel:(req:Request, res:Response, next:NextFunction)=>void 
         if(user?.channel){
             res.json({
                 status: 400,
-                message:"User is not a creator (doesn't own a channel)"
+                message:"User already has a channel"
             })
             return;
         }

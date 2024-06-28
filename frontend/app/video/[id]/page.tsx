@@ -116,7 +116,7 @@ function Video() {
       router.push("/login");
       return;
     }
-    console.log(id)
+    
     await post(`video/${id}/save`);
     if(video.saved){
       setVideo((prev:VideoInterface)=>({...prev, saved:false}))
