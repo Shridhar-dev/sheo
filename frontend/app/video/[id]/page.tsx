@@ -232,7 +232,7 @@ function Video() {
                     video.reviews.length > 0 && video.reviews.map((review:ReviewInterface, i:number)=>(
                       <div key={i} className=" flex mb-6 text-white items-center gap-2">
                         <Image
-                          src={review.profileImage || ""}
+                          src={review.profileImage || "https://res.cloudinary.com/dnwckxyyr/image/upload/b_rgb:FFFFFF/v1719059489/pgn4knhdevbig6xj1ugl.png"}
                           height={40}
                           width={40}
                           className="rounded-full"

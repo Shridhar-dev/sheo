@@ -56,7 +56,7 @@ function VideoListView() {
   
 
   return (
-    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 p-5 gap-5 gap-y-8'>
+    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 p-5 pb-20 gap-5 gap-y-8'>
         {
           videos.length > 0 && videos.map((video:VideoInterface, i:number)=>(
             <VideoCard key={i} name={video.name} views={video.views} link={video._id} thumbnail={video.thumbnail} channel={video.channel} channelSrc="" />

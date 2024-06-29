@@ -8,14 +8,6 @@ export default function Home() {
     <main className="">
       <SearchBar />
       <VideoListView />
-      {/*<section className="grid grid-cols-12">
-        <div className="">
-
-        </div>
-        <div className="">
-
-        </div>
-  </section>*/}
     </main>
   );
 }

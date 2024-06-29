@@ -126,7 +126,7 @@ export default function Component() {
           <Image 
             src={MegaPhone.src}
             height={MegaPhone.height}
-            width={MegaPhone.width-400}
+            width={MegaPhone.width}
             alt=""
             className="object-cover absolute h-full w-full"
           />
