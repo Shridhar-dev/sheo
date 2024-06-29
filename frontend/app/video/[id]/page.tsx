@@ -43,7 +43,7 @@ function Video() {
   const { id } = useParams();
   const app = useContext<any>(AppContext);
   
-  const router = useRouter()
+  const { push } = useRouter()
   const [video, setVideo] = useState<VideoInterface>({
     _id: "",
   name:"",
@@ -85,7 +85,7 @@ function Video() {
   const likeVideo = async() =>{
 
     if(!app.user) {
-      router.push("/login");
+      push("/login");
       return;
     }
     await post(`video/like`,{videoId:id});
@@ -98,7 +98,7 @@ function Video() {
   const subscribeChannel = async() =>{
 
     if(!app.user) {
-      router.push("/login");
+      push("/login");
       return;
     }
     await post(`channel/${video.channel.id}/subscribe`);
@@ -113,7 +113,7 @@ function Video() {
   const saveVideo = async() =>{
 
     if(!app.user) {
-      router.push("/login");
+      push("/login");
       return;
     }
     
@@ -128,7 +128,7 @@ function Video() {
 
   const sendComment = async() =>{
     if(!app.user) {
-      router.push("/login");
+      push("/login");
       return;
     }
     const response = await post(`video/reply`,{videoId:id, name:app.user.name, profileImage:app.user.profileImage, review:comment});

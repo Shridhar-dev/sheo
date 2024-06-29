@@ -25,10 +25,12 @@ export default function Component() {
     })
 
     const app = useContext<any>(AppContext); 
-   
+
     useEffect(()=>{
-      if(app.user === undefined) return;
-      
+      if(app.user === undefined || app.user === null) {
+        push("/login");
+        return;
+      }
     },[app])
 
     const updateUser = async(e:FormEvent<HTMLFormElement>) => {
