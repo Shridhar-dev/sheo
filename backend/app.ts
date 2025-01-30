@@ -7,7 +7,7 @@ import channelRouter from "./routes/channel.routes.js"
 
 const app:Express = express()
 
-let whitelist = ['http://localhost:3000', 'https://sheo.vercel.app']
+let whitelist = ['https://sheo.vercel.app']
 
 app.use(cors({
     origin: function (origin:any, callback) {

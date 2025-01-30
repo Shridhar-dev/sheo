@@ -21,6 +21,8 @@ function SignUpPage() {
     password:"", 
     passwordConfirmation:""
   })
+  const [error, setError] = useState(null)
+
   const { toast } = useToast()
   const { push } = useRouter();
   const { getAcc } = useContext<any>(AppContext); 
@@ -39,6 +41,7 @@ function SignUpPage() {
     }
     if(res.status !== 200){
       toast({ title: "There was an error signing you up ❌", description:res.message})  
+      setError(res.message)
     }
   }
   
@@ -62,7 +65,7 @@ function SignUpPage() {
                 <Input onChange={(e)=>setFormData((prev)=>({...prev, password:e.target.value}))} required={true} type="password" placeholder="Enter password"  />
                 <Input onChange={(e)=>setFormData((prev)=>({...prev, passwordConfirmation:e.target.value}))} required={true} type="password" placeholder="Enter password confirmation"  />
                 {passwordCondition && <p className=" text-red-400 flex items-center gap-x-2 bg-orange-200 bg-opacity-20 p-2 rounded-md"> <AlertTriangle size={16} />passwords do not match</p>}
-                <p></p>
+                {error && <p className="text-sm bg-orange-100 text-orange-600 p-2 rounded">{error}</p>}
                 <Button type="submit" disabled={condition}>Sign Up</Button>
                 <Link href="/login">Already have an account? <span className="font-semibold">Sign In</span></Link>
             </form>
